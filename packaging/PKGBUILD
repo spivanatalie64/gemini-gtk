@@ -13,7 +13,7 @@ sha256sums=('c23d3430c84c04ad4ed11f1001ec9160954e1e95c0f70d3c7c9db04062d6a4c7')
 
 build() {
   cd "$srcdir/gemini-gtk-main"
-  npm install --production
+  npm install
 }
 
 package() {
