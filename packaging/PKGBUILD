@@ -13,12 +13,12 @@ source=("git+https://github.com/spivanatalie64/gemini-gtk.git")
 sha256sums=('SKIP')
 
 build() {
-  cd "$srcdir/$pkgname"
+  cd "$srcdir/gemini-gtk"
   npm install --production
 }
 
 package() {
-  cd "$srcdir/$pkgname"
+  cd "$srcdir/gemini-gtk"
   
   # Install application files
   install -dm755 "$pkgdir/usr/lib/$pkgname"
