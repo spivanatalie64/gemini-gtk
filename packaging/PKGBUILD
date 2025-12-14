@@ -24,7 +24,7 @@ package() {
 
   # Install application files
   install -dm755 "$pkgdir/usr/lib/$pkgname"
-  cp -r src package.json "$pkgdir/usr/lib/$pkgname/"
+  cp -r package.json "$pkgdir/usr/lib/$pkgname/"
   cp -r node_modules "$pkgdir/usr/lib/$pkgname/"
   
   # Install legacy files (documentation)
