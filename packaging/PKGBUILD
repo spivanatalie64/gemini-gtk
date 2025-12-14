@@ -1,0 +1,52 @@
+# Maintainer: Natalie Spiva <natalie@example.com>
+pkgname=ai-box
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="AI-Box - Premium multi-platform AI client with local Ollama support"
+arch=('x86_64')
+url="https://github.com/spivanatalie64/gemini-gtk"
+license=('MIT')
+depends=('electron' 'nodejs' 'npm')
+makedepends=('git')
+optdepends=('ollama: Local AI model support')
+source=("git+https://github.com/spivanatalie64/gemini-gtk.git")
+sha256sums=('SKIP')
+
+build() {
+  cd "$srcdir/$pkgname"
+  npm install --production
+}
+
+package() {
+  cd "$srcdir/$pkgname"
+  
+  # Install application files
+  install -dm755 "$pkgdir/usr/lib/$pkgname"
+  cp -r src package.json "$pkgdir/usr/lib/$pkgname/"
+  cp -r node_modules "$pkgdir/usr/lib/$pkgname/"
+  
+  # Install legacy files (documentation)
+  install -dm755 "$pkgdir/usr/share/doc/$pkgname"
+  cp -r legacy_gtk "$pkgdir/usr/share/doc/$pkgname/"
+  
+  # Create launcher script
+  install -dm755 "$pkgdir/usr/bin"
+  cat > "$pkgdir/usr/bin/$pkgname" << EOF
+#!/bin/bash
+cd /usr/lib/$pkgname
+electron .
+EOF
+  chmod +x "$pkgdir/usr/bin/$pkgname"
+  
+  # Install desktop file
+  install -Dm644 /dev/stdin "$pkgdir/usr/share/applications/$pkgname.desktop" << EOF
+[Desktop Entry]
+Name=AI-Box
+Comment=Premium multi-platform AI client with local Ollama support
+Exec=$pkgname
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Utility;Network;
+EOF
+}

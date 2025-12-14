@@ -1,13 +1,21 @@
 {
-    "name": "gemini-electron-wrapper",
+    "name": "ai-box",
     "version": "1.0.0",
-    "description": "Premium Electron wrapper for Gemini and AI Studio",
+    "description": "AI-Box - Premium multi-platform AI client with local Ollama support",
     "main": "src/main.js",
     "scripts": {
         "start": "electron ."
     },
-    "author": "",
-    "license": "ISC",
+    "keywords": [
+        "ai",
+        "electron",
+        "gemini",
+        "chatgpt",
+        "claude",
+        "ollama"
+    ],
+    "author": "Natalie Spiva",
+    "license": "MIT",
     "devDependencies": {
         "electron": "^33.2.1"
     }
