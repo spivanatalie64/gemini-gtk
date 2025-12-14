@@ -9,7 +9,7 @@ license=('MIT')
 depends=('electron' 'nodejs' 'npm')
 optdepends=('ollama: Local AI model support')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/spivanatalie64/gemini-gtk/archive/main.tar.gz")
-sha256sums=('c23d3430c84c04ad4ed11f1001ec9160954e1e95c0f70d3c7c9db04062d6a4c7')
+sha256sums=('a8082ea8a8c6363d1877b511b66a00c33ece2d0bdd495d58d59d77ba1e59e6c4')
 
 build() {
   cd "$srcdir/gemini-gtk-main"
@@ -19,9 +19,6 @@ build() {
 package() {
   cd "$srcdir/gemini-gtk-main"
   
-  echo "DEBUG: Listing files in current directory"
-  ls -la
-
   # Install application files
   install -dm755 "$pkgdir/usr/lib/$pkgname"
   cp -r src package.json "$pkgdir/usr/lib/$pkgname/"
