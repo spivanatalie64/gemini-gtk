@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=AI-Box
+Comment=Premium multi-platform AI client with local Ollama support
+Exec=ai-box
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Utility;Network;
