@@ -7,18 +7,17 @@ arch=('x86_64')
 url="https://github.com/spivanatalie64/gemini-gtk"
 license=('MIT')
 depends=('electron' 'nodejs' 'npm')
-makedepends=('git')
 optdepends=('ollama: Local AI model support')
-source=("git+https://github.com/spivanatalie64/gemini-gtk.git")
-sha256sums=('SKIP')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/spivanatalie64/gemini-gtk/archive/main.tar.gz")
+sha256sums=('a8082ea8a8c6363d1877b511b66a00c33ece2d0bdd495d58d59d77ba1e59e6c4')
 
 build() {
-  cd "$srcdir/gemini-gtk"
+  cd "$srcdir/gemini-gtk-main"
   npm install --production
 }
 
 package() {
-  cd "$srcdir/gemini-gtk"
+  cd "$srcdir/gemini-gtk-main"
   
   # Install application files
   install -dm755 "$pkgdir/usr/lib/$pkgname"
