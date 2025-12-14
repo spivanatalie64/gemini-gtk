@@ -1,0 +1,14 @@
+{
+    "name": "gemini-electron-wrapper",
+    "version": "1.0.0",
+    "description": "Premium Electron wrapper for Gemini and AI Studio",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "electron": "^33.2.1"
+    }
+}
