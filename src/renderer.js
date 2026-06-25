@@ -1,5 +1,3 @@
-const { ipcRenderer } = require('electron');
-
 const icons = {
     'gemini': '✨',
     'studio': '🧠',
@@ -34,7 +32,7 @@ const labels = {
     'pika': 'Pika'
 };
 
-ipcRenderer.on('update-tabs', (event, services) => {
+window.electronAPI.onUpdateTabs((services) => {
     const container = document.getElementById('tabs-container');
     container.innerHTML = ''; // Clear existing
 
@@ -65,7 +63,7 @@ function switchTab(tabId) {
     if (activeTab) activeTab.classList.add('active');
 
     // Logic Update
-    ipcRenderer.send('switch-tab', tabId);
+    window.electronAPI.switchTab(tabId);
 }
 
 // Mode Switching
@@ -76,11 +74,11 @@ function switchMode(mode) {
     if (activeBtn) activeBtn.classList.add('active');
 
     // Logic Update
-    ipcRenderer.send('switch-mode', mode);
+    window.electronAPI.switchMode(mode);
 }
 
 function integrateDesktop() {
-    ipcRenderer.send('integrate-desktop');
+    window.electronAPI.integrateDesktop();
 }
 
 function openVSCodeDialog() {
@@ -92,7 +90,7 @@ function closeVSCodeDialog() {
 }
 
 function confirmVSCodeIntegration() {
-    ipcRenderer.send('integrate-vscode');
+    window.electronAPI.integrateVscode();
     closeVSCodeDialog();
 }
 
@@ -103,12 +101,12 @@ function toggleLocalPanel() {
 }
 
 function checkOllamaStatus() {
-    ipcRenderer.send('check-ollama');
+    window.electronAPI.checkOllama();
 }
 
 function installOllama() {
     document.getElementById('status-text').textContent = 'Installing Ollama...';
-    ipcRenderer.send('install-ollama');
+    window.electronAPI.installOllama();
 }
 
 function sendLocalMessage() {
@@ -123,7 +121,7 @@ function sendLocalMessage() {
     input.value = '';
 
     // Send to Ollama
-    ipcRenderer.send('ollama-chat', { model, message });
+    window.electronAPI.ollamaChat({ model, message });
 }
 
 function addChatMessage(role, content) {
@@ -136,7 +134,7 @@ function addChatMessage(role, content) {
 }
 
 // IPC Listeners
-ipcRenderer.on('ollama-status', (event, { installed }) => {
+window.electronAPI.onOllamaStatus(({ installed }) => {
     const statusDot = document.getElementById('status-dot');
     const statusText = document.getElementById('status-text');
     const installSection = document.getElementById('install-section');
@@ -155,7 +153,7 @@ ipcRenderer.on('ollama-status', (event, { installed }) => {
     }
 });
 
-ipcRenderer.on('ollama-install-result', (event, { success, error }) => {
+window.electronAPI.onOllamaInstallResult(({ success, error }) => {
     if (success) {
         checkOllamaStatus();
     } else {
@@ -163,7 +161,7 @@ ipcRenderer.on('ollama-install-result', (event, { success, error }) => {
     }
 });
 
-ipcRenderer.on('ollama-response', (event, { response, error }) => {
+window.electronAPI.onOllamaResponse(({ response, error }) => {
     if (error) {
         addChatMessage('assistant', 'Error: ' + error);
     } else {
